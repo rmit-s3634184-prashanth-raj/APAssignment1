@@ -165,3 +165,327 @@ public class CreatePeople
 		}
 		return validStatus;
 	}
+	
+	public Adult getAdultObjectById(String iD)
+	{
+		//System.out.println("id: " + iD);
+		Adult a1 = null;
+		try
+		{
+			for( int i = 0; i < this.listOfAdult.size(); i ++)
+			{
+				if( this.listOfAdult.get(i).getID().equalsIgnoreCase(iD) )
+				{
+					a1 = new Adult();
+					a1 = this.listOfAdult.get(i);
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[CreatePeople]getAdultObjectById: " + e.getMessage());
+		}
+		return a1;
+	}
+
+	public Dependent getDependentObjectById(String iD)
+	{
+		//System.out.println("id: " + iD);
+		Dependent d1 = null;
+		try
+		{
+			for( int i = 0; i < this.listOfDependent.size(); i ++)
+			{
+				if( this.listOfDependent.get(i).getID().equalsIgnoreCase(iD) )
+				{
+					d1 = new Dependent();
+					d1 = this.listOfDependent.get(i);
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[CreatePeople]getDependentObjectById: " + e.getMessage());
+		}
+		return d1;
+	}
+
+	public String getPersonTypeById(String id)
+	{
+		String type = "";
+		try
+		{
+			for( int i = 0; i < this.listOfAdult.size(); i ++)
+			{
+				if( this.listOfAdult.get(i).getID().equalsIgnoreCase(id) )
+				{
+					type = this.listOfAdult.get(i).getType();
+				}
+			}
+			for( int i = 0; i  < this.listOfDependent.size(); i ++ )
+			{
+				if( this.listOfDependent.get(i).getID().equalsIgnoreCase(id) )
+				{
+					type = this.listOfDependent.get(i).getType();
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[CreatePeople]getAdultObjectById: " + e.getMessage());
+		}
+		return type;
+	}
+	
+	//change: display the person detail and then create a new function for getting the profile a person is associated with by name!
+	public void getPersonDetailsByName(String name)
+	{
+		try
+		{
+			for( int i = 0; i < this.listOfAdult.size(); i ++)
+			{
+				if( this.listOfAdult.get(i).getName().equalsIgnoreCase(name) )
+				{
+					System.out.println("Person by name: " + name + " was found");
+					System.out.println("ID: " + this.listOfAdult.get(i).getID());
+					System.out.println("Name: " + this.listOfAdult.get(i).getName());
+					if( this.listOfAdult.get(i).getType() != null )
+						System.out.println("Type: " + this.listOfAdult.get(i).getType());
+					break;
+				}
+				else
+				{
+					if( i == ( this.listOfAdult.size() - 1 ) )
+					{
+						System.out.println("Not found");
+					}
+				}
+			}
+			for( int i = 0; i < this.listOfDependent.size(); i ++)
+			{
+				if( this.listOfDependent.get(i).getName().equalsIgnoreCase(name) )
+				{
+					System.out.println("Person by name: " + name + " was found");
+					System.out.println("ID: " + this.listOfDependent.get(i).getID());
+					System.out.println("Name: " + this.listOfDependent.get(i).getName());
+					if( this.listOfDependent.get(i).getType() != null )
+						System.out.println("Type: " + this.listOfDependent.get(i).getType());
+					break;
+				}
+				else
+				{
+					if( i == ( this.listOfDependent.size() - 1 ) )
+					{
+						System.out.println("Not found");
+					}
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Adult]getPersonDetailsByName: " + e.getMessage());
+		}
+	}
+
+	//change: display the person detail and then create a new function for getting the profile a person is associated with by name!
+	public Profile getPersonProfileByPersonName(String name)
+	{
+		Profile p1 = null;
+		try
+		{
+			for( int i = 0; i < this.listOfAdult.size(); i ++)
+			{
+				if( this.listOfAdult.get(i).getName().equalsIgnoreCase(name) )
+				{
+					p1 = this.listOfAdult.get(i).getProfile();
+					break;
+				}
+				else
+				{
+					if( i == ( this.listOfAdult.size() - 1 ) )
+					{
+						System.out.println("Not found");
+					}
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Adult]getPersonDetailsByName: " + e.getMessage());
+		}
+		return p1;
+	}
+
+	public Profile getProfileObjectByProflieName(String name)
+	{
+		Profile p1 = null;
+		try
+		{
+			for( int i = 0; i < this.listOfProfile.size(); i ++)
+			{
+				if( this.listOfProfile.get(i).getProfileName().equalsIgnoreCase(name) )
+				{
+					p1 = this.listOfProfile.get(i);
+					break;
+				}
+				else
+				{
+					if( i == ( this.listOfProfile.size() - 1 ) )
+					{
+						System.out.println("Not found");
+					}
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[CreatePeople]getProfileObjectByName: " + e.getMessage());
+		}
+		return p1;
+	}
+
+	public Adult getAdultObjectByName(String name)
+	{
+		Adult a1 = null;
+		try
+		{
+			for( int i = 0; i < this.listOfAdult.size(); i ++)
+			{
+				if( this.listOfAdult.get(i).getName().equalsIgnoreCase(name) )
+				{
+					a1 = new Adult();
+					a1 = this.listOfAdult.get(i);
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[CreatePeople]getAdultObjectByName: " + e.getMessage());
+		}
+		return a1;
+	}
+
+	public void addProfileToList(Profile profile1)
+	{
+		try
+		{
+			this.listOfProfile.add(profile1);
+		}
+		catch(Exception e)
+		{
+			System.out.println("[CreatePeople]addProfileToList " + e.getMessage());
+		}
+	}
+
+	public List<Profile> getListOfProfile()
+	{
+		return this.listOfProfile;
+	}
+
+	public void deletePersonById(String id)
+	{
+		boolean isRemoved = false;
+		//get person type by id/name
+		//based on the type select either adult or dependent list
+		try
+		{
+			for( int i = 0; i < this.listOfAdult.size(); i ++)
+			{
+				if( this.listOfAdult.get(i).getID().equalsIgnoreCase(id) )
+				{
+					this.listOfAdult.remove(i);
+					isRemoved = true;
+				}
+			}
+			if( isRemoved )
+			{
+				System.out.println("Person with ID: " + id + " is removed");
+			}
+			else
+			{
+				for( int i = 0; i < this.listOfDependent.size(); i ++)
+				{
+					if( this.listOfDependent.get(i).getID().equalsIgnoreCase(id) )
+					{
+						this.listOfDependent.remove(i);
+						isRemoved = true;
+					}
+				}
+				if( isRemoved )
+				{
+					System.out.println("Person with ID: " + id + " is removed");
+				}
+				else
+				{
+					System.out.println("Person with ID: " + id + " not found");
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[CreatePeople]deletePersonById " + e.getMessage());
+		}
+	}
+
+	public void deleteProfileByName(String name)
+	{
+		try
+		{
+			for( int i = 0; i < this.listOfProfile.size(); i ++)
+			{
+				if( this.listOfProfile.get(i).getProfileName().equalsIgnoreCase(name) )
+				{
+					this.listOfProfile.remove(i);
+					System.out.println("Profile by name: " + name + " is removed");
+				}
+				else
+				{
+					if( i == ( this.listOfProfile.size() - 1 ) )
+					{
+						System.out.println("Profile by name: " + name + " not found");
+					}
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[CreatePeople]deleteProfileByName: " + e.getMessage());
+		}
+	}
+
+	public void displayProfiles()
+	{
+		try
+		{
+			if( this.listOfProfile.size() > 0 )
+			{
+				System.out.println("Profile details: ");
+				for( int i = 0; i < this.listOfProfile.size(); i ++ )
+				{
+					System.out.println("Profile Name: " + this.listOfProfile.get(i).getProfileName());
+					System.out.println("Profile Age: " + this.listOfProfile.get(i).getAge());
+					System.out.println("Profile Image path: " + this.listOfProfile.get(i).getProfileImagePath());
+					System.out.println("Profile Status: " + this.listOfProfile.get(i).getProfileStatus());
+					System.out.println();
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[CreatePeople]displayProfiles " + e.getMessage());
+		}
+	}
+	private int genRandomAge(int min, int max)
+	{
+		int randomInt = 0;
+		try
+		{
+			randomInt = ranObj.nextInt(max) + min;
+		}
+		catch(Exception e)
+		{
+			System.out.println("[CreatePeople]genRandomAge: " + e.getMessage());
+		}
+		return randomInt;
+	}
+}
