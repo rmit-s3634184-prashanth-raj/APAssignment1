@@ -378,3 +378,279 @@ public class Menu
 			System.out.println("[Menu]selectAPersonByName: " + e.getMessage());
 		}
 	}
+private void displayProfileDetails()
+	{
+		String name = "";
+		Profile profile1 = null;
+		try
+		{
+			if( displayPeopleHaveProfileDetails() )
+			{
+				scannerObj = new Scanner(System.in);
+				System.out.println("Please enter Profile name to get profile details: ");
+				name = scannerObj.nextLine();
+				if( ctPpl.validSearchByProfileName(name) )
+				{
+					profile1 = ctPpl.getProfileObjectByProflieName(name);
+					System.out.println("Profile details by name: " + name  );
+					System.out.println("Profile name: " + profile1.getProfileName());
+					System.out.println("Profile image path: " + profile1.getProfileImagePath());
+					System.out.println("Profile status: " + profile1.getProfileStatus());
+					System.out.println("Profile number of friends: " + profile1.getNumberofFriends());
+				}
+				else
+				{
+					System.out.println("Profile not found");
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu] displayProfileDetails: " + e.getMessage());
+		}
+	}
+
+	public void updateProfileInformation()
+	{
+		String name = "";
+		Profile profile1 = null;
+		int updateInfoChoice = 0;
+		try
+		{
+			if( displayPeopleHaveProfileDetails() )
+			{
+				scannerObj = new Scanner(System.in);
+				System.out.println("Please enter Profile name to get profile details: ");
+				name = scannerObj.nextLine();
+				if( ctPpl.validSearchByProfileName(name) )
+				{
+					System.out.println("Proflie by name " + name + " was found");
+					System.out.println("1. Profile Name");
+					System.out.println("2. Profile Image Path");
+					System.out.println("3. Profile Status");
+					System.out.println("0. Go back to previous menu");
+					System.out.println("Please select an information [ 1 / 2 / 3 / 0 (Go back to previous menu)] from above to update profile information: ");
+	
+					profile1 = ctPpl.getProfileObjectByProflieName(name);
+					String oldProfileName = profile1.getProfileName();
+					updateInfoChoice = scannerObj.nextInt();
+					scannerObj.nextLine();
+					if( updateInfoChoice == 1 )
+					{
+						System.out.println("Enter new Profile name");
+						String newProfileName = "";
+						newProfileName = scannerObj.nextLine();
+						profile1.setProfileName(newProfileName);
+						System.out.println("Profile name is changed from '" + oldProfileName + "' to '" +profile1.getProfileName() );
+					}
+					else if( updateInfoChoice == 2 )
+					{
+						System.out.println("Enter new Image path");
+						String newProfileName = "";
+						newProfileName = scannerObj.nextLine();
+						profile1.setProfileName(newProfileName);
+						System.out.println("Profile name is changed from '" + oldProfileName + "' to '" +profile1.getProfileName() );
+					}
+					else if( updateInfoChoice == 3 )
+					{
+	
+					}
+					else if( updateInfoChoice == 0 )
+					{
+	
+					}
+					else
+					{
+						System.out.println("Invalid choice");
+					}
+				}
+				else
+				{
+					System.out.println("Profile not found");
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu] updateProfileInformation: " + e.getMessage());
+		}
+	}
+
+	public void deletePerson()
+	{
+		String name = "";
+		String profileName = "";
+		Adult adult1 = null;
+		Profile profile1 = null;
+		String selectedId = "";
+		try
+		{
+			scannerObj = new Scanner(System.in);
+			System.out.println("Please enter person to delete");
+			name = scannerObj.nextLine();
+			if( (adult1 = ctPpl.getAdultObjectByName(name) ) != null )
+			{
+				adult1.displayPersonDetails();
+				profile1 = adult1.getProfile();
+				selectedId = adult1.getID();
+				ctPpl.deletePersonById(selectedId);
+
+				System.out.println("List of people after deleting person with id: " + selectedId);
+				ctPpl.displayAdultDetails();
+				ctPpl.displayDependentDetails();
+
+				if( profile1 != null )
+				{
+					profileName = profile1.getProfileName();
+					System.out.println("Profile name associated with this person: " + profileName);
+					ctPpl.deleteProfileByName(profile1.getProfileName());
+					System.out.println("List of profiles after deleting profile by name " + profileName + " associated with person with id: " + selectedId);
+					ctPpl.displayProfiles();
+				}
+			}
+			else
+			{
+				System.out.println("Person not found");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu] deletePerson: " + e.getMessage());
+		}
+	}
+	/*
+	 * if they are already connected - display the same
+	 */
+	public void createConnections()
+	{
+		String type1 = "";
+		String type2 = "";
+		try
+		{
+			scannerObj = new Scanner(System.in);
+			String firstPersonId = "";
+			String secondPersonId = "";
+			if( displayPeopleHaveProfileDetails() )
+			{
+				if( profileList.size() >= 2 )
+				{	
+					System.out.println("In order to create connections please select 2 persons by id from the above list");
+					System.out.println("Select first person by Id: ");
+					do
+					{
+						firstPersonId = scannerObj.nextLine();
+					}while( ! validPersonId(firstPersonId));
+					System.out.println("Select second person by Id: ");
+					do
+					{
+						secondPersonId = scannerObj.nextLine(); 
+					}while( ! validPersonId(secondPersonId));
+					type1 = ctPpl.getPersonTypeById(firstPersonId);
+					type2 = ctPpl.getPersonTypeById(secondPersonId);
+					if( type1.equalsIgnoreCase("adult") && type2.equalsIgnoreCase("adult") )
+					{
+						createConnectionBetweenAdults(firstPersonId, secondPersonId);
+					}
+					else if( type1.equalsIgnoreCase("adult") && type2.equalsIgnoreCase("dependent") )
+					{
+						createConnectionBetweenAdultAndDependent(firstPersonId, secondPersonId);
+					}
+					else if( type1.equalsIgnoreCase("dependent") && type2.equalsIgnoreCase("adult") )
+					{
+						createConnectionBetweenDependentAndAdult(firstPersonId, secondPersonId);
+					}
+					else if( type1.equalsIgnoreCase("dependent") && type2.equalsIgnoreCase("dependent") )
+					{
+						createConnectionBetweenDependents(firstPersonId, secondPersonId);
+					}
+					else
+					{
+						System.out.println("Connection cannot be created");
+					}
+				}
+				else
+				{
+					System.out.println("There has to be at least 2 profiles to create connection");
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu]createConnections " +e.getMessage());
+		}
+	}
+
+	private boolean displayPeopleHaveProfileDetails()
+	{
+		boolean hasProfile = false;
+		try
+		{
+			//list of Adults who have profile can only be connected!
+			System.out.println("List of people who have profiles: ");
+			for( int i = 0; i < adultList.size(); i ++)
+			{
+				if( adultList.get(i).getHasProfile() )
+				{
+					hasProfile = true;
+					System.out.println("Person type: " + adultList.get(i).getType());
+					System.out.println("Person ID: " + adultList.get(i).getID());
+					System.out.println("Person name: " + adultList.get(i).getName());
+					System.out.println("Profile name: " + adultList.get(i).getProfile().getProfileName());
+					System.out.println("Has partner: " + adultList.get(i).getHasPartner());
+					System.out.println();
+					profileListWithPersonIds.add(adultList.get(i).getID());
+				}
+			}
+			for( int i = 0; i < dependentList.size(); i++)
+			{
+				if( dependentList.get(i).getHasProfile() )
+				{
+					hasProfile = true;
+					System.out.println("Person type: " + dependentList.get(i).getType());
+					System.out.println("Person ID: " + dependentList.get(i).getID());
+					System.out.println("Person name: " + dependentList.get(i).getName());
+					System.out.println("Profile name: " + dependentList.get(i).getProfile().getProfileName());
+					System.out.println();
+					profileListWithPersonIds.add(dependentList.get(i).getID());
+				}
+			}
+			if( ! hasProfile )
+			{
+				System.out.println("There are no profiles in the network");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu]displayPeopleHaveProfileDetails: " + e.getMessage());
+		}
+		return hasProfile;
+	}
+
+	private boolean validPersonId(String personId)
+	{
+		boolean isValid = false;
+		try
+		{
+			for( int i = 0; i < profileListWithPersonIds.size(); i++)
+			{
+				if(  profileListWithPersonIds.get(i).equalsIgnoreCase(personId))
+				{
+					isValid = true;
+				}
+			}
+			
+			if( isValid )
+			{
+				System.out.println("Person Id: " + personId + " is a valid selection");
+			}
+			else
+			{
+				System.out.println("Person Id: " + personId + " is not a valid selection. Please select a valid ID");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu]validPersonId: " + e.getMessage());
+		}
+		return isValid;
+	}
