@@ -654,3 +654,930 @@ private void displayProfileDetails()
 		}
 		return isValid;
 	}
+private void createConnectionBetweenAdults(String firstPersonId, String secondPersonId)
+	{
+		Adult adult1 = null, adult2 = null;
+		Connection connection1 = null, connection2 = null;
+		List<Connection> connectionList1 = null, connectionList2 = null;
+		int connectionChoice = 0;
+		try
+		{
+			System.out.println("Creating connection between two adults");
+			adult1 = ctPpl.getAdultObjectById(firstPersonId);
+			adult2 = ctPpl.getAdultObjectById(secondPersonId);
+			//if
+			connectionList1 = adult1.getProfile().getConnections();
+			connectionList2 = adult2.getProfile().getConnections();
+			System.out.println();
+			System.out.println("con btw ad: connectionList1.size()>> " + connectionList1.size());
+			System.out.println("con btw ad: connectionList2.size()>> " + connectionList2.size());
+			if( connectionList1.size() == 0 && connectionList2.size() == 0 )
+			{
+				System.out.println("Case 1");
+				System.out.println("Possible connection type: ");
+				System.out.println("1. Friends");
+				System.out.println("2. Partners");
+				System.out.println("0. Go back to previous menu");
+				System.out.println("Please choose the type of connection [ 1 / 2 / 0(Go back to previous menu)] ");
+				connectionChoice = getMenuChoiceInt("sub3");
+				if( connectionChoice == 1 )
+				{
+					//friends
+					connection1 = new Connection("Friends", adult1);
+					connection2 = new Connection("Friends", adult2);
+					adult1.getProfile().setConnection(connection2);
+					adult2.getProfile().setConnection(connection1);
+				}
+				else if( connectionChoice == 2 )
+				{
+					//partners
+					connection1 = new Connection("Partners", adult1);
+					connection2 = new Connection("Partners", adult2);
+					adult1.getProfile().setConnection(connection2);
+					adult2.getProfile().setConnection(connection1);
+					adult1.setPartner(true);
+					adult2.setPartner(true);
+					partnerList.add(adult1);
+					//connection1.setNumberOfPartners();
+				}
+				else if( connectionChoice == 0 )
+				{
+					System.out.println("Go back to prevoius menu - Selected");
+					scannerObj = null;
+					displayMenu(this.ctPpl);
+				}
+				else
+				{
+					System.out.println("Invalid choice");
+				}
+			}
+			//
+			else if( connectionList1.size() > 0 && connectionList2.size() == 0 )
+			{
+				if( ! adult1.getHasPartner() )
+				{
+					System.out.println("Possible connection type: ");
+					System.out.println("1. Friends");
+					System.out.println("2. Partners"); //partnerList.add
+					System.out.println("0. Go back to previous menu");
+					System.out.println("Please choose the type of connection [ 1 / 2 / 0(Go back to previous menu)] ");
+					connectionChoice = getMenuChoiceInt("sub3");
+					if( connectionChoice == 1 )
+					{
+						//friends
+						connection1 = new Connection("Friends", adult1);
+						connection2 = new Connection("Friends", adult2);
+						adult1.getProfile().setConnection(connection2);
+						adult2.getProfile().setConnection(connection1);
+					}
+					else if( connectionChoice == 2 )
+					{
+						//partners
+						connection1 = new Connection("Partners", adult1);
+						connection2 = new Connection("Partners", adult2);
+						adult1.getProfile().setConnection(connection2);
+						adult2.getProfile().setConnection(connection1);
+						adult1.setPartner(true);
+						adult2.setPartner(true);
+						partnerList.add(adult1);
+						//connection1.setNumberOfPartners();
+					}
+					else if( connectionChoice == 0 )
+					{
+						System.out.println("Go back to prevoius menu - Selected");
+						scannerObj = null;
+						displayMenu(this.ctPpl);
+					}
+					else
+					{
+						System.out.println("Invalid choice");
+					}
+				}
+				else
+				{
+					System.out.println("Possible connection type: ");
+					System.out.println("1. Friends");
+					System.out.println("0. Go back to previous menu");
+					System.out.println("Please choose the type of connection [ 1 / 0(Go back to previous menu)]");
+					connectionChoice = getMenuChoiceInt("sub2");
+					if( connectionChoice == 1 )
+					{
+						//friends
+						connection1 = new Connection("Friends", adult1);
+						connection2 = new Connection("Friends", adult2);
+						adult1.getProfile().setConnection(connection2);
+						adult2.getProfile().setConnection(connection1);
+					}
+					else if( connectionChoice == 0 )
+					{
+						System.out.println("Go back to prevoius menu - Selected");
+						scannerObj = null;
+						displayMenu(this.ctPpl);
+					}
+					else
+					{
+						System.out.println("Invalid choice");
+					}
+				}
+			}
+			//
+			else if( connectionList1.size() == 0 && connectionList2.size() > 0 )
+			{
+				if( ! adult2.getHasPartner() )
+				{
+					System.out.println("Possible connection type: ");
+					System.out.println("1. Friends");
+					System.out.println("2. Partners"); //partnerList
+					System.out.println("Please choose the type of connection [ 1 / 2] ");
+					connectionChoice = getMenuChoiceInt("sub2");
+					if( connectionChoice == 1 )
+					{
+						//friends
+						connection1 = new Connection("Friends", adult1);
+						connection2 = new Connection("Friends", adult2);
+						adult1.getProfile().setConnection(connection2);
+						adult2.getProfile().setConnection(connection1);
+					}
+					else if( connectionChoice == 2 )
+					{
+						//partners
+						connection1 = new Connection("Partners", adult1);
+						connection2 = new Connection("Partners", adult2);
+						adult1.getProfile().setConnection(connection2);
+						adult2.getProfile().setConnection(connection1);
+						adult1.setPartner(true);
+						adult2.setPartner(true);
+						partnerList.add(adult1);
+						//connection1.setNumberOfPartners();
+					}
+					else if( connectionChoice == 0 )
+					{
+						System.out.println("Go back to prevoius menu - Selected");
+						scannerObj = null;
+						displayMenu(this.ctPpl);
+					}
+					else
+					{
+						System.out.println("Invalid choice");
+					}
+				}
+				else
+				{
+					System.out.println("Possible connection type: ");
+					System.out.println("1. Friends");
+					System.out.println("0. Go back to previous menu");
+					System.out.println("Please choose the type of connection [ 1 / 0(Go back to previous menu)]");
+					connectionChoice = getMenuChoiceInt("sub2");
+					if( connectionChoice == 1 )
+					{
+						//friends
+						connection1 = new Connection("Friends", adult1);
+						connection2 = new Connection("Friends", adult2);
+						adult1.getProfile().setConnection(connection2);
+						adult2.getProfile().setConnection(connection1);
+					}
+					else if( connectionChoice == 0 )
+					{
+						System.out.println("Go back to prevoius menu - Selected");
+						scannerObj = null;
+						displayMenu(this.ctPpl);
+					}
+					else
+					{
+						System.out.println("Invalid choice");
+					}
+				}
+			}
+			//
+			else if( connectionList1.size() > 0 && connectionList2.size() > 0 )
+			{
+				if( adult1.getHasPartner() )
+				{
+					for( int i = 0; i < connectionList1.size(); i ++)
+					{
+						if( adult1.getProfile().getConnections().get(i).getAdult().getID().equalsIgnoreCase(adult2.getID()) )
+						{
+							System.out.println("adult1.getProfile().getConnections().get(i).getAdult().getID()>> " + adult1.getProfile().getConnections().get(i).getAdult().getID());
+							System.out.println("Persons with ids " + firstPersonId + " and " + secondPersonId + " are already connected");
+							System.out.println("Connection type: Partners, therefore they are implicitly friends");
+						}
+						else
+						{
+							System.out.println("Possible connection");
+							System.out.println("1. Friends");
+							System.out.println("0. Go back to previous menu");
+							System.out.println("Please choose the type of connection [ 1 / 0(Go back to previous menu)]");
+							connectionChoice = getMenuChoiceInt("sub2");
+							if( connectionChoice == 1 )
+							{
+								//friends
+								connection1 = new Connection("Friends", adult1);
+								connection2 = new Connection("Friends", adult2);
+								adult1.getProfile().setConnection(connection2);
+								adult2.getProfile().setConnection(connection1);
+							}
+							else if( connectionChoice == 0 )
+							{
+								System.out.println("Go back to prevoius menu - Selected");
+								scannerObj = null;
+								displayMenu(this.ctPpl);
+							}
+							else
+							{
+								System.out.println("Invalid choice");
+							}
+						}
+					}
+				}
+				else if( adult2.getHasPartner() )
+				{
+					for( int i = 0; i < connectionList2.size(); i ++)
+					{
+						if( adult2.getProfile().getConnections().get(i).getAdult().getID().equalsIgnoreCase(adult1.getID()) )
+						{
+							System.out.println("adult2.getProfile().getConnections().get(i).getAdult().getID()>> " + adult2.getProfile().getConnections().get(i).getAdult().getID());
+							System.out.println("Persons with ids " + firstPersonId + " and " + secondPersonId + " are already connected");
+							System.out.println("Connection type: Partners, therefore they are implicitly friends");
+						}
+						else
+						{
+							System.out.println("Possible connection");
+							System.out.println("1. Friends");
+							System.out.println("0. Go back to previous menu");
+							System.out.println("Please choose the type of connection [ 1 / 0(Go back to previous menu)]");
+							connectionChoice = getMenuChoiceInt("sub2");
+							if( connectionChoice == 1 )
+							{
+								//friends
+								connection1 = new Connection("Friends", adult1);
+								connection2 = new Connection("Friends", adult2);
+								adult1.getProfile().setConnection(connection2);
+								adult2.getProfile().setConnection(connection1);
+							}
+							else if( connectionChoice == 0 )
+							{
+								System.out.println("Go back to prevoius menu - Selected");
+								scannerObj = null;
+								displayMenu(this.ctPpl);
+							}
+							else
+							{
+								System.out.println("Invalid choice");
+							}
+						}
+					}
+				}
+				else
+				{
+					System.out.println("connectionList1.size()>> " + connectionList1.size());
+					//if they are already friends then partner is the only connection type possible
+					//else either partner or friends
+					for( int i = 0; i < connectionList1.size(); i ++ )
+					{
+						System.out.println("adult1.getProfile().getConnections().get(i).getAdult().getID()>> " + adult1.getProfile().getConnections().get(i).getAdult().getID());
+						System.out.println("adult2.getID()>> " + adult2.getID());
+						if( adult1.getProfile().getConnections().get(i).getAdult().getID().equalsIgnoreCase(adult2.getID()) )
+						{
+							System.out.println(">>??i: " + i);
+							System.out.println("Possible connection: ");
+							System.out.println("1. Partner"); //partnerList
+							System.out.println("0. Go back to previous menu");
+							connectionChoice = getMenuChoiceInt("sub2");
+							System.out.println("connectionChoice>> " + connectionChoice);
+							if( connectionChoice == 1 )
+							{
+								System.out.println("reached?");
+								//partners
+								connection1 = new Connection("Partners", adult1);
+								connection2 = new Connection("Partners", adult2);
+								adult1.getProfile().setConnection(connection2);
+								adult2.getProfile().setConnection(connection1);
+								adult1.setPartner(true);
+								adult2.setPartner(true);
+								partnerList.add(adult1);
+								break;
+								//connection1.setNumberOfPartners();
+							}
+							else if( connectionChoice == 0 )
+							{
+								System.out.println("Go back to prevoius menu - Selected");
+								scannerObj = null;
+								displayMenu(this.ctPpl);
+								break;
+							}
+						}
+						else
+						{
+							if( i == ( connectionList1.size() - 1 ) )
+							{
+								System.out.println("Possible connections: ");
+								System.out.println("1. Friends");
+								System.out.println("2. Partners");//partnerList
+								System.out.println("0. Go back to previous menu");
+								System.out.println("Please choose the type of connection [ 1 / 2 / 0(Go back to previous menu)] ");
+								connectionChoice = getMenuChoiceInt("sub3");
+								if( connectionChoice == 1 )
+								{
+									//friends
+									connection1 = new Connection("Friends", adult1);
+									connection2 = new Connection("Friends", adult2);
+									adult1.getProfile().setConnection(connection2);
+									adult2.getProfile().setConnection(connection1);
+									break;
+								}
+								else if( connectionChoice == 2 )
+								{
+									//partners
+									connection1 = new Connection("Partners", adult1);
+									connection2 = new Connection("Partners", adult2);
+									adult1.getProfile().setConnection(connection2);
+									adult2.getProfile().setConnection(connection1);
+									adult1.setPartner(true);
+									adult2.setPartner(true);
+									partnerList.add(adult1);
+									break;
+									//connection1.setNumberOfPartners();
+								}
+								else if( connectionChoice == 0 )
+								{
+									System.out.println("Go back to prevoius menu - Selected");
+									scannerObj = null;
+									displayMenu(this.ctPpl);
+								}
+								else
+								{
+									System.out.println("Invalid choice");
+								}
+							}
+						}
+					}
+				}
+			}
+			System.out.println("list of conneection for adult1: ");
+			totalconnectionList = adult1.getProfile().getConnections();
+			System.out.println("totalconnectionList: " + totalconnectionList.size());
+			System.out.println("Connection type: " + adult1.getProfile().getConnections().get(0).getConnectionType());
+			System.out.println("Connection adult ID: " + adult1.getProfile().getConnections().get(0).getAdult().getID());
+			System.out.println("Connection adult1 partner: " + adult1.getProfile().getConnections().get(0).getAdult().getHasPartner());
+			System.out.println("Connection adult2 partner: " + adult2.getProfile().getConnections().get(0).getAdult().getHasPartner());
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu]createConnectionBetweenAdults: " + e.getMessage());
+		}
+	}
+
+	private void createConnectionBetweenAdultAndDependent(String firstPersonId, String secondPersonId)
+	{
+		Adult adult1 = null, adult2 = null;
+		Dependent depen1 = null;
+		Connection connection1 = null, connection2 = null, connection3 = null;
+		List<Connection> connectionList1 = null;
+		int connectionChoice = 0;
+		try
+		{
+			System.out.println("Creating connection between an adult and dependent");
+			adult1 = ctPpl.getAdultObjectById(firstPersonId);
+			depen1 = ctPpl.getDependentObjectById(secondPersonId);
+
+			if( adult1.getHasPartner() )
+			{
+				if( ! ( depen1.getHasParent() ) )
+				{
+					connectionList1 = adult1.getProfile().getConnections();
+					System.out.println("connectionList1>> " + connectionList1.size());
+					for(int i = 0; i < connectionList1.size(); i ++)
+					{
+						//System.out.println(i + "adult1.getProfile().getConnections().get(i).getAdult().getID()>> " + adult1.getProfile().getConnections().get(i).getAdult().getID());
+						System.out.println(i + "connectionList1.get(i).getConnectionType()>> " + connectionList1.get(i).getConnectionType());
+						if( connectionList1.get(i).getConnectionType().equalsIgnoreCase("Partners") )
+						{
+							System.out.println(i + "adult1.getProfile().getConnections().get(i).getAdult().getID()2>> " + adult1.getProfile().getConnections().get(i).getAdult().getID());
+							System.out.println(i + "connectionList1.get(i).getConnectionType()2>> " + connectionList1.get(i).getConnectionType());
+							System.out.println("adult1.getProfile().getConnections().get(i).getAdult()>> " + adult1.getProfile().getConnections().get(i).getAdult());
+							adult2 = adult1.getProfile().getConnections().get(i).getAdult(); 
+						}
+					}
+
+					System.out.println("Possible connection type: ");
+					System.out.println("1. Family");
+					System.out.println("0. Go back to previous menu");
+					System.out.println("Please choose the type of connection [ 1 / 0 (Go back to previous menu)] ");
+					connectionChoice = getMenuChoiceInt("sub2");
+					System.out.println(">>connectionChoice: " + connectionChoice);
+					System.out.println(">> adult1: " + adult1.getID());
+					System.out.println(">> adult2: " + adult2.getID());
+					if( connectionChoice == 1 )
+					{
+						System.out.println("create family?");
+						connection1 = new Connection("Family", adult1);
+						connection2 = new Connection("Family", adult2);
+						connection3 = new Connection("Family", depen1);
+						adult1.getProfile().setConnection(connection3);
+						adult2.getProfile().setConnection(connection3);
+						depen1.getProfile().setConnection(connection1);
+						depen1.getProfile().setConnection(connection2);
+						adult1.setHasChild(true);
+						adult2.setHasChild(true);
+						depen1.setHasParent(true);
+					}
+					else if( connectionChoice == 0 )
+					{
+						System.out.println("Go back to prevoius menu - Selected");
+						scannerObj = null;
+						displayMenu(this.ctPpl);
+					}
+					else
+					{
+						System.out.println("Invalid choice");
+					}
+				}
+				else
+				{
+					System.out.println("Dependent has a parent");
+				}
+			}
+			else
+			{
+				System.out.println("Selected adult has no partner, hence connnection can not be created.");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu]createConnectionBetweenAdultAndDependent: " + e.getMessage());
+		}
+	}
+
+	private void createConnectionBetweenDependentAndAdult(String firstPersonId, String secondPersonId)
+	{
+		Adult adult1 = null, adult2 = null;
+		Dependent depen1 = null;
+		Connection connection1 = null, connection2 = null, connection3 = null;
+		List<Connection> connectionList1 = null;
+		int connectionChoice = 0;
+		try
+		{
+			System.out.println("Creating connection between an adult and dependent");
+			depen1 = ctPpl.getDependentObjectById(firstPersonId);
+			adult1 = ctPpl.getAdultObjectById(secondPersonId);
+
+			if( adult1.getHasPartner() )
+			{
+				if( ! ( depen1.getHasParent() ) )
+				{
+					connectionList1 = adult1.getProfile().getConnections();
+					for(int i = 0; i < connectionList1.size(); i ++)
+					{
+						if( adult1.getProfile().getConnections().get(i).getAdult().getID().equalsIgnoreCase(adult1.getID() ) )
+						{
+							adult2 = adult1.getProfile().getConnections().get(i).getAdult(); 
+						}
+					}
+
+					System.out.println("Possible connection type: ");
+					System.out.println("1. Family");
+					System.out.println("0. Go back to previous menu");
+					System.out.println("Please choose the type of connection [ 1 / 0 (Go back to previous menu)] ");
+					connectionChoice = getMenuChoiceInt("sub2");
+					if( connectionChoice == 1 )
+					{
+						connection1 = new Connection("Family", adult1);
+						connection2 = new Connection("Family", adult2);
+						connection3 = new Connection("Family", depen1);
+						adult1.getProfile().setConnection(connection3);
+						adult2.getProfile().setConnection(connection3);
+						depen1.getProfile().setConnection(connection1);
+						depen1.getProfile().setConnection(connection2);
+						adult1.setHasChild(true);
+						adult2.setHasChild(true);
+						depen1.setHasParent(true);
+					}
+					else if( connectionChoice == 0 )
+					{
+						System.out.println("Go back to prevoius menu - Selected");
+						scannerObj = null;
+						displayMenu(this.ctPpl);
+					}
+					else
+					{
+						System.out.println("Invalid choice");
+					}
+				}
+				else
+				{
+					System.out.println("Dependent has a parent");
+				}
+			}
+			else
+			{
+				System.out.println("Selected adult has no partner, hence connnection can not be created.");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu]createConnectionBetweenDependentAndAdult: " + e.getMessage());
+		}
+	}
+
+	private void createConnectionBetweenDependents(String firstPersonId, String secondPersonId)
+	{
+		Adult adult1 = null, adult2 = null;
+		Dependent depen1 = null, depen2 = null;
+		Connection connection1 = null, connection2 = null;
+		List<Connection> connectionList1 = null, connectionList2 = null;
+		int connectionChoice = 0;
+		int ageDiff = 0;
+		try
+		{
+			depen1 = ctPpl.getDependentObjectById(firstPersonId);
+			depen2 = ctPpl.getDependentObjectById(secondPersonId);
+
+			if( depen1.getHasParent() && depen2.getHasParent() )
+			{
+				connectionList1 = depen1.getProfile().getConnections();
+				connectionList2 = depen2.getProfile().getConnections();
+				for( int i = 0; i < connectionList1.size(); i ++ )
+				{
+					adult1 = connectionList1.get(i).getAdult();
+				}
+				for( int i = 0; i < connectionList2.size(); i++ )
+				{
+					adult2 = connectionList2.get(i).getAdult();
+				}
+
+				if( adult1.getID().equalsIgnoreCase(adult2.getID() ) )
+				{
+					System.out.println("The selected dependents are siblings, implicitly they both are friends");
+					connection1 = new Connection("Sibling", depen1);
+					connection2 = new Connection("Sibling", depen2);
+					depen1.getProfile().setConnection(connection2);
+					depen2.getProfile().setConnection(connection1);
+				}
+				else
+				{
+					System.out.println("1. Dependent " + depen1.getProfile().getProfileName() + " age: " + depen1.getProfile().getAge());
+					System.out.println("2. Dependent " + depen2.getProfile().getProfileName() + " age: " + depen2.getProfile().getAge());
+					if( depen1.getProfile().getAge() > 2 && depen2.getProfile().getAge() > 2 )
+					{
+						System.out.println("1. Dependent " + depen1.getProfile().getProfileName() + " age: " + depen1.getProfile().getAge());
+						System.out.println("2. Dependent " + depen2.getProfile().getProfileName() + " age: " + depen2.getProfile().getAge());
+						if( depen1.getProfile().getAge() > depen2.getProfile().getAge() )
+						{
+							ageDiff = depen1.getProfile().getAge() - depen2.getProfile().getAge();
+						}
+						else
+						{
+							ageDiff = depen2.getProfile().getAge() - depen1.getProfile().getAge();
+						}
+						if( ageDiff < 3 )
+						{
+							System.out.println("Possible connection");
+							System.out.println("1. Friend");
+							System.out.println("0. Go back to previous menu");
+							System.out.println("Please choose the type of connection [ 1 / 0 (Go back to previous menu)] ");
+							connectionChoice = getMenuChoiceInt("sub2");
+							if( connectionChoice == 1 )
+							{
+								connection1 = new Connection("Friend", depen1);
+								connection2 = new Connection("Friend", depen2);
+								depen1.getProfile().setConnection(connection2);
+								depen2.getProfile().setConnection(connection1);
+							}
+							else if( connectionChoice == 0 )
+							{
+								System.out.println("Go back to previous menu");
+							}
+							else
+							{
+								System.out.println("Invalid choice");
+							}
+						}
+						else
+						{
+							System.out.println("Cannot create connection. Age differences between the dependents is more than 3 years");
+						}
+					}
+					else
+					{
+						System.out.println("Cannot create connection. Dependents are 2 years of age.");
+					}
+				}
+			}
+			else
+			{
+				System.out.println("Cannot create connection.");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu]createConnectionBetweenDependents: " + e.getMessage());
+		}
+	}
+
+	public void connectionLookUpFriends()
+	{
+		String firstPersonId = "";
+		String secondPersonId = "";
+		String type1 = "", type2 = ""; 
+		Adult adult1 = null, adult2 = null;
+		Dependent depen1 = null, depen2 = null;
+		List<Connection> connectionList1 = null, connectionList2= null;
+		boolean isDirectFriends = false;
+		try
+		{
+			/*
+			 	1. Person with only profile
+			 */
+			if ( displayPeopleHaveProfileDetails() )
+			{
+				System.out.println("Please select 2 persons by ID to find the relationship between them from the above list of people");
+				scannerObj = new Scanner(System.in);
+				displayPeopleHaveProfileDetails();
+				System.out.println("In order to create connections please select 2 persons by id from the above list");
+				System.out.println("Select first person by Id: ");
+				do
+				{
+					firstPersonId = scannerObj.nextLine();
+				}while( ! validPersonId(firstPersonId));
+				System.out.println("Select second person by Id: ");
+				do
+				{
+					secondPersonId = scannerObj.nextLine(); 
+				}while( ! validPersonId(secondPersonId));
+				type1 = ctPpl.getPersonTypeById(firstPersonId);
+				type2 = ctPpl.getPersonTypeById(secondPersonId);
+				if( type1.equalsIgnoreCase("adult") && type2.equalsIgnoreCase("adult") )
+				{
+					adult1 = ctPpl.getAdultObjectById(firstPersonId);
+					adult2 = ctPpl.getAdultObjectById(secondPersonId);
+					connectionList1 = adult1.getProfile().getConnections();
+					connectionList2 = adult2.getProfile().getConnections();
+	
+					System.out.println("friends look up connectionList1.size()>> " + connectionList1.size());
+					System.out.println("friends look up connectionList2.size()>> " + connectionList2.size());
+					if( connectionList1.size() > 0 && connectionList2.size() > 0 )
+					{
+						for( int i = 0; i < connectionList1.size(); i ++ )
+						{
+							if( connectionList1.get(i).getAdult().getID().equalsIgnoreCase(adult2.getID()) )
+							{
+								if( connectionList1.get(i).getConnectionType().equalsIgnoreCase("Friends") )
+								{
+									isDirectFriends = true;
+								}
+							}
+						}
+					}
+				}
+				else if( type1.equalsIgnoreCase("adult") && type2.equalsIgnoreCase("dependent") )
+				{
+					adult1 = ctPpl.getAdultObjectById(firstPersonId);
+					depen1 = ctPpl.getDependentObjectById(secondPersonId);
+				}
+				else if( type1.equalsIgnoreCase("dependent") && type2.equalsIgnoreCase("adult") )
+				{
+					depen1 = ctPpl.getDependentObjectById(firstPersonId);
+					adult2 = ctPpl.getAdultObjectById(secondPersonId);
+				}
+				else if( type1.equalsIgnoreCase("dependent") && type2.equalsIgnoreCase("dependent") )
+				{
+					depen1 = ctPpl.getDependentObjectById(firstPersonId);
+					depen2 = ctPpl.getDependentObjectById(secondPersonId);
+					connectionList1 = depen1.getProfile().getConnections();
+					connectionList2 = depen2.getProfile().getConnections();
+					if( connectionList1.size() > 0 && connectionList2.size() > 0 )
+					{
+						for( int i = 0; i < connectionList1.size(); i ++ )
+						{
+							if( connectionList1.get(i).getDependent().getID().equalsIgnoreCase(depen2.getID()) )
+							{
+								if( connectionList1.get(i).getAdult().getType().equalsIgnoreCase("Friends") )
+								{
+									System.out.println("Persons ids: 1. " + firstPersonId + " and 2. " + secondPersonId );
+									isDirectFriends = true;
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					System.out.println("Connection not found");
+				}
+				if( isDirectFriends )
+				{
+					System.out.println("Persons ids: 1. " + firstPersonId + " and 2. " + secondPersonId );
+					System.out.println("Direct friends: Yes!" );
+				}
+				else
+				{
+					System.out.println("Persons ids: 1. " + firstPersonId + " and 2. " + secondPersonId );
+					System.out.println("Direct friends: No!" );
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu]connectionLookUpFriends: ");
+		}
+	}
+
+	public void connectionLookUpFamily()
+	{
+		int counter = 1;
+		String firstPersonId = "";
+		String type1 = ""; 
+		Adult adult1 = null;
+		Dependent depen1 = null;
+		List<Connection> connectionList1 = null;
+		try
+		{
+			if( displayPeopleHaveProfileDetails() )
+			{
+				System.out.println("Select a person by Id to find out the name(s) of a person’s child(ren) or the names of the parents");
+				System.out.println("Select first person by Id: ");
+				do
+				{
+					firstPersonId = scannerObj.nextLine();
+				}while( ! validPersonId(firstPersonId));
+				type1 = ctPpl.getPersonTypeById(firstPersonId);
+				if( type1.equalsIgnoreCase("adult") )
+				{
+					adult1 = ctPpl.getAdultObjectById(firstPersonId);
+					if( adult1.getHasChild() )
+					{
+						connectionList1 = adult1.getProfile().getConnections();
+						for( int i = 0; i < connectionList1.size(); i ++ )
+						{
+							if( connectionList1.get(i).getConnectionType().equalsIgnoreCase("Family") )
+							{
+								System.out.println("Child(ren) name(s)");
+								System.out.println(counter + ") Person ID: " + connectionList1.get(i).getDependent().getID());
+								System.out.println("Person name: " + connectionList1.get(i).getDependent().getName());
+								System.out.println("Person profile name: " + connectionList1.get(i).getDependent().getProfile().getProfileName());
+								counter++;
+							}
+						}
+					}
+				}
+				else if( type1.equalsIgnoreCase("dependent") )
+				{
+					depen1 = ctPpl.getDependentObjectById(firstPersonId);
+					if( depen1.getHasParent() )
+					{
+						connectionList1 = depen1.getProfile().getConnections();
+						for( int i = 0; i < connectionList1.size(); i ++)
+						{
+							System.out.println("Names of parents");
+							System.out.println("Person Id: " + connectionList1.get(i).getAdult().getID());
+							System.out.println("Person Name: " + connectionList1.get(i).getAdult().getName());
+							System.out.println("Person profile name: " + connectionList1.get(i).getAdult().getProfile().getProfileName());
+						}
+						//display parent names
+					}
+				}
+				else
+				{
+					System.out.println("Selected person has no family connection");
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu]connectionLookUpFamily: " + e.getMessage());
+		}
+	}
+	
+	public int getMenuChoiceInt(String filter)
+	{
+		int choice = 0;
+		try
+		{
+			scannerObj = new Scanner(System.in);
+			if( filter.equalsIgnoreCase("main") )
+			{
+				choice = validateIntMenuOption(1, 9, "main");
+			}
+			if( filter.equalsIgnoreCase("sub3") )
+			{
+				choice = validateIntMenuOption(0, 2, "sub3");
+			}
+			if( filter.equalsIgnoreCase("sub2") )
+			{
+				choice = validateIntMenuOption(0, 1, "sub2");
+			}
+			if( filter.equalsIgnoreCase("ageAdult") )
+			{
+				choice = validateIntMenuOption(16, 99, "ageAdult");
+			}
+			if( filter.equalsIgnoreCase("ageDepen") )
+			{
+				choice = validateIntMenuOption(1, 15, "ageDepen");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu]validMenuChoiceInt: " + e.getMessage() );
+		}
+		return choice;
+	}
+	
+	public int validateIntMenuOption(int min, int max, String filter)
+	{
+		System.out.println(">>filter " + filter);
+		boolean isValid = false;
+		int choice = 0;
+		try
+		{
+			do
+			{
+				if( scannerObj.hasNextInt() )
+				{
+					choice = scannerObj.nextInt();
+					scannerObj.nextLine();
+					if( choice >=min && choice <=max )
+					{
+						isValid = true;
+					}
+					else
+					{
+						if( filter.equalsIgnoreCase("ageAdult")  )
+						{
+							System.out.println("Enter age between 16 and 99 [inclusive]");
+						}
+						else if( filter.equalsIgnoreCase("ageDepen") )
+						{
+							System.out.println("Enter age between 2 and 15 [inclusive]");
+						}
+						else
+						{
+							System.out.println("Enter a valid option");
+						}
+					}
+				}
+				else
+				{
+					scannerObj.nextLine();
+					if( filter.equalsIgnoreCase("ageAdult") || filter.equalsIgnoreCase("ageDepen") )
+					{
+						System.out.println("Enter age between 16 and 99 [inclusive]");
+					}
+					else if( filter.equalsIgnoreCase("ageDepen") )
+					{
+						System.out.println("Enter age between 2 and 15 [inclusive]");
+					}
+					else
+					{
+						System.out.println("Enter a valid option");
+					}
+				}
+			}while( ! isValid );
+		}
+		catch(Exception e)
+		{
+			System.out.println("[Menu]validateIntMenuOption " + e.getMessage());
+		}
+		System.out.println(">>isValid:  " + isValid);
+		return choice;
+	}
+}
+/*
+5 adults in the system 3 has profile and 3 don't
+adultList = ctPpl.getListOfAdult();
+for( int i = 0; i < this.adultList.size(); i++ )
+{
+	if( i != 3 && i != 4 )
+	{
+		p1 = new Profile( profileName + i, i, profileImage + i, profileStatus + i );
+		this.adultList.get(i).setProfile(p1);
+		System.out.println(this.adultList.get(i).getHasProfile());
+	}
+}
+ */
+/*
+ * debug code to be deleted:
+ creation of connection
+adult1 = ctPpl.getAdultObjectById("a1");
+adult2 = ctPpl.getAdultObjectById("a2");
+connectionList1 = adult1.getProfile().getConnections();
+connectionList2 = adult2.getProfile().getConnections();
+connection1 = new Connection("Partners", adult1);
+connection2 = new Connection("Partners", adult2);
+adult1.getProfile().setConnection(connection2);
+adult2.getProfile().setConnection(connection1);
+adult1.setPartner(true);
+adult2.setPartner(true);
+partnerList.add(adult1);
+connection1.setNumberOfPartners();
+
+connection1 = new Connection("Friends", adult1);
+connection2 = new Connection("Friends", adult2);
+adult1.getProfile().setConnection(connection2);
+adult2.getProfile().setConnection(connection1);
+ */
+
+/*
+between adults: 
+	friend - only if they aren't partners
+	partners - if they are friends, update the connection type from friends partners 
+ */
