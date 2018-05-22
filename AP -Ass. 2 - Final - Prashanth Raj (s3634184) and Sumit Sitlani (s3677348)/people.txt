@@ -1,0 +1,13 @@
+Alex Smith, "", "student at RMIT", M, 21, WA
+Ben Turner, "BenPhoto.jpg", "manager at Coles", M, 35, VIC
+Hannah White, "Hannah.png", "student at PLC", F, 14, VIC
+Zoe Foster, "", "Founder of ZFX", F, 28, VIC
+Mark Turner, "Mark.jpeg", "", M, 2, VIC
+Jackie Turner, "Mark.jpeg", "", F, 12, VIC
+Megan Smith, "", "student at RMIT", F, 20, WA
+Gina Torres, "Mark.jpeg", "", F, 10, VIC
+Donna Paulson, "Mark.jpeg", "", F, 38, VIC
+Stephan Huntly, "Mark.jpeg", "", M, 48, VIC
+Person1, "Mark.jpeg", "", M, 48, VIC
+Person2, "Mark.jpeg", "", M, 48, VIC
+Person3, "Mark.jpeg", "", M, 48, VIC
